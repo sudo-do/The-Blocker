@@ -29,6 +29,7 @@ async function initializeEditors() {
     setEditorFocuses();
     functions([setEditorEmptyLines, setEditorCursors, setEditorChanges]);
     userEditor.focus();
+    editors(clearHistory);
 }
 
 async function setEditorText() {
@@ -83,6 +84,10 @@ function setEditorCursors(editor) {
 
 function setEditorChanges(editor) {
     editor.on("changes", filtersChanged);
+}
+
+function clearHistory(editor) {
+    editor.clearHistory();
 }
 
 function filtersChanged(changed) {
