@@ -76,7 +76,7 @@ iframe {
     }
 
     .tabButton:not(.selected):hover {
-        background-color:rgb(var(--gray-20));
+        background-color: rgb(var(--gray-20));
         border-bottom-color: rgb(var(--gray-30));
     }
 }
