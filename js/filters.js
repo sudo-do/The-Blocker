@@ -43,7 +43,7 @@ async function setEditorText() {
 
 function setEditorFocuses() {
     userEditor.setOption("extraKeys", {
-        Tab: function(cm) {
+        Tab: function (cm) {
             avatarEditor.focus();
         }
     });
