@@ -1,0 +1,182 @@
+{
+    "defaultSettings": {
+        "userArray": [],
+        "avatarArray": [],
+        "signatureArray": [],
+        "userCount": 0,
+        "avatarCount": 0,
+        "signatureCount": 0,
+        "language": "tr",
+        "optionsLastPane": "settings.html",
+        "settingsButtonsUser": true,
+        "settingsButtonsAvatar": true,
+        "settingsButtonsSignature": true,
+        "settingsPostsOnThreads": true,
+        "settingsNewThreadsPostsHome": true,
+        "settingsNewThreadsPostsSidebar": true,
+        "settingsNotifications": true,
+        "settingsProfilePosts": true,
+        "settingsProfilePostComments": true,
+        "settingsLatestOnNewThreadsPosts": true,
+        "settingsLatestOnCategoryNames": true,
+        "settingsQuotes": true,
+        "settingsAvatars": true,
+        "settingsSignatures": true,
+        "settingsSidebarShareThisPage": true,
+        "settingsSidebarMembersOnline": true,
+        "settingsSidebarRandomBlogEntries": true,
+        "settingsSidebarLatestResources": true,
+        "settingsNavigationBlogs": true,
+        "settingsNavigationVideos": true,
+        "settingsNavigationAdvices": true,
+        "settingsNavigationSponsor": true,
+        "settingsNavigationMedia": true,
+        "settingsShowIgnoredContent": true,
+        "settingsHideThisUsersSignature": true,
+        "settingsXenforoFooter": true,
+        "settingsCombineNewThreadsPosts": true,
+        "CSS": ""
+    },
+
+
+
+    "en": {
+        "extensionName": "The Blocker",
+        "extensionDescription": "UNOFFICIAL user, avatar and signature \"blocker\" for technopat.net/sosyal",
+
+
+        "optionsTitle": "Options - The Blocker",
+        "optionsSettingsPaneName": "Settings",
+        "optionsFiltersPaneName": "Filters",
+
+
+        "settingsTitle": "Settings - The Blocker",
+        "settingsLanguage": "Language",
+        "settingsLanguageEnglish": "English",
+        "settingsLanguageTurkish": "Turkish",
+        "settingsButtons": "Buttons",
+        "settingsButtonsUser": "User",
+        "settingsButtonsAvatar": "Avatar",
+        "settingsButtonsSignature": "Signature",
+        "settingsUsers": "Users",
+        "settingsPostsOnThreads": "Posts on threads",
+        "settingsNewThreadsPostsHome": "New threads/posts (home) ",
+        "settingsNewThreadsPostsSidebar": "New threads/posts (sidebar)",
+        "settingsLatestOnNewThreadsPosts": "Latest on new threads/posts",
+        "settingsLatestOnCategoryNames": "Latest on category names",
+        "settingsNotifications": "Notifications",
+        "settingsProfilePosts": "Profile posts",
+        "settingsProfilePostComments": "Profile post comments",
+        "settingsQuotes": "Quotes",
+        "settingsAvatars": "Avatars",
+        "settingsSignatures": "Signatures",
+        "settingsMiscellaneous": "Miscellaneous",
+        "settingsSidebarShareThisPage": "Sidebar share this page",
+        "settingsSidebarMembersOnline": "Sidebar members online",
+        "settingsSidebarRandomBlogEntries": "Sidebar random blog entries",
+        "settingsSidebarLatestResources": "Sidebar latest resources",
+        "settingsNavigationBlogs": "Navigation blogs",
+        "settingsNavigationVideos": "Navigation videos",
+        "settingsNavigationAdvices": "Navigation advices",
+        "settingsNavigationSponsor": "Navigation sponsor",
+        "settingsNavigationMedia": "Navigation media",
+        "settingsShowIgnoredContent": "Show ignored content",
+        "settingsHideThisUsersSignature": "Hide this user's signature",
+        "settingsXenforoFooter": "Xenforo footer",
+        "settingsCombineNewThreadsPosts": "Combine new threads/posts",
+
+
+        "filtersTitle": "Filters - The Blocker",
+        "filtersApplyButton": "Apply changes",
+        "filtersTitleUser": "User",
+        "filtersTitleAvatar": "Avatar",
+        "filtersTitleSignature": "Signature",
+
+
+        "popupTitle": "Popup - The Blocker",
+        "popupUserValueName": "Blocked users",
+        "popupAvatarValueName": "Blocked avatars",
+        "popupSignatureValueName": "Blocked signatures",
+
+
+        "contentScriptUserButtonTitle": "Block",
+        "contentScriptAvatarButtonTitle": "Block avatar",
+        "contentScriptSignatureButtonTitle": "Block signature",
+        "contentScriptUserButtonText": "Block",
+        "contentScriptAvatarButtonText": "Block avatar",
+        "contentScriptSignatureButtonText": "Block signature",
+        "contentScriptReportButtonText": "Report",
+        "contentScriptSelfBlockText": "Do not block yourself"
+    },
+
+
+
+    "tr": {
+        "extensionName": "The Blocker",
+        "extensionDescription": "technopat.net/sosyal için RESMİ OLMAYAN kullanıcı, avatar ve imza \"engelleyici\"",
+
+
+        "optionsTitle": "Seçenekler - The Blocker",
+        "optionsSettingsPaneName": "Ayarlar",
+        "optionsFiltersPaneName": "Filtreler",
+
+
+        "settingsTitle": "Ayarlar - The Blocker",
+        "settingsLanguage": "Dil",
+        "settingsLanguageEnglish": "İngilizce",
+        "settingsLanguageTurkish": "Türkçe",
+        "settingsButtons": "Butonlar",
+        "settingsButtonsUser": "Kullanıcı",
+        "settingsButtonsAvatar": "Avatar",
+        "settingsButtonsSignature": "İmza",
+        "settingsUsers": "Kullanıcılar",
+        "settingsPostsOnThreads": "Konulardaki mesajlar",
+        "settingsNewThreadsPostsSidebar": "Yeni konular/mesajlar (kenar çubuğu)",
+        "settingsNewThreadsPostsHome": "Yeni konular/mesajlar (ana sayfa)",
+        "settingsLatestOnNewThreadsPosts": "Yeni konular/mesajlar son mesaj",
+        "settingsLatestOnCategoryNames": "Kategori adları son mesaj",
+        "settingsNotifications": "Bildirimler",
+        "settingsProfilePosts": "Profil mesajları",
+        "settingsProfilePostComments": "Profil mesajı yorumları",
+        "settingsQuotes": "Alıntılar",
+        "settingsAvatars": "Avatarlar",
+        "settingsSignatures": "İmzalar",
+        "settingsMiscellaneous": "Çeşitli",
+        "settingsSidebarShareThisPage": "Kenar çubuğu bu sayfayı paylaş",
+        "settingsSidebarMembersOnline": "Kenar çubuğu çevrim içi üyeler",
+        "settingsSidebarRandomBlogEntries": "Kenar çubuğu rastgele blog girdileri",
+        "settingsSidebarLatestResources": "Kenar çubuğu yeni yazılımlar",
+        "settingsNavigationBlogs": "Navigasyon blog",
+        "settingsNavigationVideos": "Navigasyon videolar",
+        "settingsNavigationAdvices": "Navigasyon tavsiyeler",
+        "settingsNavigationSponsor": "Navigasyon sponsor",
+        "settingsNavigationMedia": "Navigasyon medya",
+        "settingsShowIgnoredContent": "Göz ardı edilen içeriği göster",
+        "settingsHideThisUsersSignature": "Kullanıcının imzasını gizle",
+        "settingsXenforoFooter": "Xenforo alt bilgi",
+        "settingsCombineNewThreadsPosts": "Yeni konular/mesajlar kısmını birleştir",
+
+
+        "filtersTitle": "Filteler - The Blocker",
+        "filtersApplyButton": "Değişiklikleri uygula",
+        "filtersTitleUser": "Kullanıcı",
+        "filtersTitleAvatar": "Avatar",
+        "filtersTitleSignature": "İmza",
+
+
+        "popupTitle": "Popup - The Blocker",
+        "popupUserValueName": "Mesajı engellenen",
+        "popupAvatarValueName": "Avatarı engellenen",
+        "popupSignatureValueName": "İmzası engellenen",
+
+
+        "contentScriptUserButtonTitle": "Engelle",
+        "contentScriptAvatarButtonTitle": "Avatar engelle",
+        "contentScriptSignatureButtonTitle": "İmza engelle",
+        "contentScriptUserButtonText": "Engelle",
+        "contentScriptAvatarButtonText": "Avatar engelle",
+        "contentScriptSignatureButtonText": "İmza engelle",
+        "contentScriptReportButtonText": "Rapor",
+        "contentScriptSelfBlockText": "Kendini engelleme"
+    }
+}

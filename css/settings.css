@@ -1,0 +1,68 @@
+/* Heavily inspired by Raymond Hill's uBlock Origin */
+.fieldset {
+    display: inline-grid;
+}
+
+.fieldset-header {
+    font-size: 32px;
+    font-weight: 500;
+}
+
+select {
+    font-family: "Segoe UI";
+    margin-top: 8px;
+    padding: 2px;
+    width: fit-content;
+}
+
+label {
+    align-items: center;
+    display: flex;
+    width: fit-content;
+}
+
+input {
+    /* color-scheme: dark; */
+    height: 16px;
+    margin-right: 10px;
+    width: 16px;
+}
+
+span {
+    font-family: "Segoe UI";
+    font-size: 24px;
+    font-weight: 300;
+    position: relative;
+    top: -1px;
+}
+
+hr {
+    border: 0;
+    border-top-width: 1px;
+    border-top-style: solid;
+    margin: 1em 0;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: rgb(var(--gray-10));
+    }
+
+    select {
+        color-scheme: dark;
+    }
+
+    span {
+        color: rgb(var(--blue-30));
+    }
+
+    hr {
+        border-top-color: rgb(var(--gray-25));
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    hr {
+        border-top-color: rgb(var(--gray-50));
+    }
+}

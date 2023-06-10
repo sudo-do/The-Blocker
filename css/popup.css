@@ -1,0 +1,34 @@
+body {
+    padding: 0 12px;
+}
+
+span {
+    display: block;
+    font-family: "Segoe UI";
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.valueName {
+    font-size: 18px;
+}
+
+.value {
+    font-size: 20px;
+    margin-bottom: 3px;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: rgb(var(--gray-10));
+    }
+    
+    span {
+        color: rgb(var(--blue-30));
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    
+}

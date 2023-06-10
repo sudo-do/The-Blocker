@@ -1,0 +1,25 @@
+<!-- Heavily inspired by Raymond Hill's uBlock Origin -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <title data-i18n="optionsTitle"></title>
+
+    <link rel="stylesheet" type="text/css" href="css/colors.css">
+    <link rel="stylesheet" type="text/css" href="css/options.css">
+</head>
+
+<body>
+    <div id="nav">
+        <button class="tabButton" data-pane="settings.html" data-i18n="optionsSettingsPaneName"></button>
+        <button class="tabButton" data-pane="filters.html" data-i18n="optionsFiltersPaneName"></button>
+    </div>
+
+    <iframe id="iframe" src=""></iframe>
+
+    <script type="module" src="js/options.js"></script>
+</body>
+
+</html>
