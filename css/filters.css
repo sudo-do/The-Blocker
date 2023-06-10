@@ -135,13 +135,11 @@ svg {
     }
 
     .CodeMirror-focused .CodeMirror-selected {
-        /* background-color: rgb(var(--blue-60)); */
-        background-color: rgba(var(--magic-blue), 0.8);
+        background-color: var(--magic-blue);
     }
 
     .CodeMirror-selected {
-        /* background-color: rgba(var(--gray-40), 0.8); */
-        background-color: rgba(var(--magic-gray), 0.5);
+        background-color: var(--magic-gray);
     }
 }
 
@@ -170,5 +168,14 @@ svg {
 
     .editorWrapper>div {
         border: 1px solid black;
+    }
+
+    .CodeMirror-focused
+    .CodeMirror-selected {
+        background-color: var(--magic-blue);
+    }
+
+    .CodeMirror-selected {
+        background-color: var(--magic-gray);
     }
 }
