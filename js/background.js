@@ -9,38 +9,9 @@ var types = {
     "signature": ["signatureArray", "signatureCount"],
 };
 
-console.log("background.js started");
-
-init();
-
-async function init() {
-    settings = await storage.get(null);
-    createOffscreen();
-}
-
-async function createOffscreen(path = "offscreen.html") {
-    const offscreenUrl = chrome.runtime.getURL(path);
-    const matchedClients = await clients.matchAll();
-    for (const client of matchedClients) {
-        if (client.url === offscreenUrl) {
-            return;
-        }
-    }
-
-    if (creating) {
-        await creating;
-    } else {
-        creating = chrome.offscreen.createDocument({
-            url: path,
-            reasons: ["DOM_SCRAPING"],
-            justification: "set icon theme",
-        });
-        await creating;
-        creating = null;
-    }
-}
-
 chrome.runtime.onInstalled.addListener(async () => {
+    await createOffscreen();
+
     const jsonURL = await chrome.runtime.getURL("storage.json");
     const response = await fetch(jsonURL);
     const json = await response.json();
@@ -64,6 +35,10 @@ chrome.runtime.onInstalled.addListener(async () => {
 
     // await chrome.storage.local.clear();
     // await chrome.storage.sync.clear();
+});
+
+chrome.runtime.onStartup.addListener(async () => {
+    await init();
 });
 
 chrome.runtime.onMessage.addListener(
@@ -101,6 +76,36 @@ chrome.runtime.onMessage.addListener(
         }
     }
 );
+
+async function init() {
+    settings = await storage.get(null);
+    createOffscreen();
+}
+
+async function createOffscreen(path = "offscreen.html") {
+    const offscreenUrl = chrome.runtime.getURL(path);
+    const matchedClients = await clients.matchAll();
+
+    for (const client of matchedClients) {
+        if (client.url === offscreenUrl) {
+            return;
+        }
+    }
+
+    if (creating) {
+        await creating;
+    }
+
+    else {
+        creating = chrome.offscreen.createDocument({
+            url: path,
+            reasons: ["DOM_SCRAPING"],
+            justification: "set icon theme",
+        });
+        await creating;
+        creating = null;
+    }
+}
 
 async function injectCSS(tabId) {
     var result = await storage.get("CSS");
