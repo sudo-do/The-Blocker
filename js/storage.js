@@ -15,9 +15,6 @@ storage.miscKeys = {
     "settingsShowIgnoredContent": `.showIgnoredLink.js-showIgnored`,
     "settingsHideThisUsersSignature": `[class^="js-userSignatureLabel"]`,
     "settingsXenforoFooter": `.p-footer-copyright`,
-    "settingsCombineNewThreadsPosts": `.menu-tabHeader.tabs.widget-group-tabs`,
-
-    // "settingsCombineNewThreadsPosts",
 };
 
 storage.userKeys = {
@@ -53,7 +50,6 @@ storage.setCSS = async function () {
     this.settings = await this.get(null);
 
     var miscCSS = "";
-    var combineNewThreadsPostsCSS = "";
     var userCSS = "";
     var avatarCSS = "";
     var signatureCSS = "";
@@ -65,10 +61,6 @@ storage.setCSS = async function () {
     var userCSSnewThreadsPostsHome = "";
 
     var isAnyUserFiltersAreUsed = Object.keys(this.userKeys).some(key => this.settings[key]);
-
-    if (this.settings["settingsCombineNewThreadsPosts"]) {
-        combineNewThreadsPostsCSS = `li:has([data-widget-definition="new_posts"],[data-widget-definition="new_threads"]){display:block!important;}`;
-    }
 
     if (this.settings["settingsAvatars"] && this.settings["avatarArray"].length) {
         avatarCSS = `:is(a[data-user-id="${this.settings["avatarArray"].join(`"],a[data-user-id="`)}"])>img{display:none!important;}`;
@@ -121,7 +113,7 @@ storage.setCSS = async function () {
         userCSS = `${userCSSgeneral}${userCSSlatestOnNewThreadsPosts}${userCSSlatestOnCategoryNames}${userCSSnewThreadsPostsHome}`;
     }
 
-    var CSS = `${miscCSS}${combineNewThreadsPostsCSS}${userCSS}${avatarCSS}${signatureCSS}${quoteCSS}`;
+    var CSS = `${miscCSS}${userCSS}${avatarCSS}${signatureCSS}${quoteCSS}`;
 
     await this.set({
         CSS: CSS

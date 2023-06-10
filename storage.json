@@ -34,7 +34,7 @@
         "settingsShowIgnoredContent": true,
         "settingsHideThisUsersSignature": true,
         "settingsXenforoFooter": true,
-        "settingsCombineNewThreadsPosts": true,
+        "settingsBottomWidget": true,
         "CSS": ""
     },
 
@@ -83,7 +83,7 @@
         "settingsShowIgnoredContent": "Show ignored content",
         "settingsHideThisUsersSignature": "Hide this user's signature",
         "settingsXenforoFooter": "Xenforo footer",
-        "settingsCombineNewThreadsPosts": "Combine new threads/posts",
+        "settingsBottomWidget": "Add button widget",
 
 
         "filtersTitle": "Filters - The Blocker",
@@ -154,7 +154,7 @@
         "settingsShowIgnoredContent": "Göz ardı edilen içeriği göster",
         "settingsHideThisUsersSignature": "Kullanıcının imzasını gizle",
         "settingsXenforoFooter": "Xenforo alt bilgi",
-        "settingsCombineNewThreadsPosts": "Yeni konular/mesajlar kısmını birleştir",
+        "settingsBottomWidget": "Alt widget ekle",
 
 
         "filtersTitle": "Filteler - The Blocker",

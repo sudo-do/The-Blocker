@@ -117,8 +117,8 @@
     "settingsXenforoFooter": {
         "message": "Xenforo alt bilgi"
     },
-    "settingsCombineNewThreadsPosts": {
-        "message": "Yeni konular/mesajlar kısmını birleştir"
+    "settingsBottomWidget": {
+        "message": "Alt widget ekle"
     },
 
 

@@ -117,8 +117,8 @@
     "settingsXenforoFooter": {
         "message": "Xenforo footer"
     },
-    "settingsCombineNewThreadsPosts": {
-        "message": "Combine new threads/posts"
+    "settingsBottomWidget": {
+        "message": "Add button widget"
     },
 
 

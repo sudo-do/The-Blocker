@@ -46,6 +46,9 @@ chrome.runtime.onMessage.addListener(
         if (request.type === "injectCSS") {
             await injectCSS(sender.tab.id);
         }
+        else if (request.type === "tabHandlerCSS") {
+            await tabHandlerCSS(sender.tab.id);
+        }
         else if (themes.includes(request.type)) {
             setIcon(request.type);
         }
@@ -125,6 +128,14 @@ function setIcon(theme) {
             "64": `../img/icon_${theme}_64.png`,
             "128": `../img/icon_${theme}_128.png`
         }
+    });
+}
+
+async function tabHandlerCSS(tabId) {
+    chrome.scripting.insertCSS({
+        target: { tabId: tabId },
+        origin: "USER",
+        css: "#cloneMenuHandler .tabs-tab.is-active{border-color:#366484;}#cloneMenuHandler .tabs-tab{border-bottom:none!important;border-top:3px solid transparent;padding:4px 15px 5px!important;}"
     });
 }
 

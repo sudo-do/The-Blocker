@@ -27,6 +27,15 @@
         },
         {
             "matches": [
+                "https://www.technopat.net/sosyal/"
+            ],
+            "js": [
+                "js/tabHandler.js"
+            ],
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
                 "https://www.technopat.net/sosyal/konu/*"
             ],
             "js": [
