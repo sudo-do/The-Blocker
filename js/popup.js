@@ -5,17 +5,25 @@ import storage from "./storage.js";
 i18n.render();
 
 var result;
-var userValue = dom.qs("#userValue");
-var avatarValue = dom.qs("#avatarValue");
-var signatureValue = dom.qs("#signatureValue");
+var types = {
+    "userCount": dom.qs("#userValue"),
+    "avatarCount": dom.qs("#avatarValue"),
+    "signatureCount": dom.qs("#signatureValue")
+};
 
 setValues();
-setInterval(setValues, 50);
+
+chrome.storage.onChanged.addListener(async (changes, areaName) => {
+    Object.keys(changes).forEach((key) => {
+        if (Object.keys(types).includes(key)) {
+            types[key].textContent = changes[key].newValue;
+        }
+    });
+});
 
 async function setValues() {
-    result = await storage.get(["userArray", "avatarArray", "signatureArray"]);
-    userValue.textContent = result["userArray"].length;
-    avatarValue.textContent = result["avatarArray"].length;
-    signatureValue.textContent = result["signatureArray"].length;
-    i18n.render();
+    result = await storage.get(Object.keys(types));
+    Object.keys(types).forEach((key) => {
+        types[key].textContent = result[key];
+    });
 }
