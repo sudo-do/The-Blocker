@@ -108,7 +108,8 @@ svg {
         color: rgb(var(--blue-30));
     }
 
-    .CodeMirror, .codeMirrorContainer {
+    .CodeMirror,
+    .codeMirrorContainer {
         background-color: rgb(var(--gray-5));
     }
 
@@ -133,13 +134,14 @@ svg {
         border-left-color: rgb(var(--gray-95));
     }
 
-    .CodeMirror-focused
-    .CodeMirror-selected {
-        background-color: rgb(var(--blue-60));
+    .CodeMirror-focused .CodeMirror-selected {
+        /* background-color: rgb(var(--blue-60)); */
+        background-color: rgba(var(--magic-blue), 0.8);
     }
 
     .CodeMirror-selected {
-        background-color: rgb(var(--gray-40));
+        /* background-color: rgba(var(--gray-40), 0.8); */
+        background-color: rgba(var(--magic-gray), 0.5);
     }
 }
 
@@ -155,7 +157,7 @@ svg {
     }
 
     button:hover {
-        background-color: rgb(var(--blue-50)); 
+        background-color: rgb(var(--blue-50));
     }
 
     svg {
