@@ -16,6 +16,12 @@ var codeMirrorOptions = {
     },
 };
 
+var cache = {
+    user: "",
+    avatar: "",
+    signature: "",
+};
+
 var userEditor = new CodeMirror(dom.getById("userEditor"), codeMirrorOptions);
 var avatarEditor = new CodeMirror(dom.getById("avatarEditor"), codeMirrorOptions);
 var signatureEditor = new CodeMirror(dom.getById("signatureEditor"), codeMirrorOptions);
@@ -34,9 +40,14 @@ async function initializeEditors() {
 
 async function setEditorText() {
     let result = await storage.get(["userArray", "avatarArray", "signatureArray"]);
-    userEditor.setValue(result["userArray"].join("\n"));
-    avatarEditor.setValue(result["avatarArray"].join("\n"));
-    signatureEditor.setValue(result["signatureArray"].join("\n"));
+    
+    cache.user = result["userArray"].join("\n");
+    cache.avatar = result["avatarArray"].join("\n");
+    cache.signature = result["signatureArray"].join("\n");
+
+    userEditor.setValue(cache.user);
+    avatarEditor.setValue(cache.avatar);
+    signatureEditor.setValue(cache.signature);
 }
 
 function setEditorFocuses() {
@@ -91,6 +102,19 @@ function clearHistory(editor) {
 }
 
 function filtersChanged(changed) {
+    var userText = getEditorText(userEditor);
+    var avatarText = getEditorText(avatarEditor);
+    var signatureText = getEditorText(signatureEditor);
+
+    if (
+        cache.user === userText &&
+        cache.avatar === avatarText &&
+        cache.signature === signatureText
+    ) {
+        saveButton.disabled = true;
+        return;
+    }
+
     saveButton.disabled = !changed;
 }
 
@@ -105,6 +129,7 @@ window.addEventListener("beforeunload", (event) => {
 
 saveButton.addEventListener("click", async () => {
     await saveEditorText();
+    editors(clearHistory);
     saveButton.disabled = true;
 });
 
@@ -112,6 +137,10 @@ async function saveEditorText() {
     var userText = getEditorText(userEditor);
     var avatarText = getEditorText(avatarEditor);
     var signatureText = getEditorText(signatureEditor);
+
+    cache.user = userText;
+    cache.avatar = avatarText;
+    cache.signature = signatureText;
 
     var userArray = userText.length === 0 ? [] : userText.split("\n");
     var avatarArray = avatarText.length === 0 ? [] : avatarText.split("\n");
