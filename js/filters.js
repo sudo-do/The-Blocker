@@ -27,10 +27,7 @@ initializeEditors();
 async function initializeEditors() {
     await setEditorText();
     setEditorFocuses();
-    editors(setEditorEmptyLines);
-    editors(setEditorCursors);
-    editors(setEditorChanges);
-
+    functions([setEditorEmptyLines, setEditorCursors, setEditorChanges]);
     userEditor.focus();
 }
 
@@ -62,6 +59,10 @@ function setEditorFocuses() {
             }
         }
     });
+}
+
+function functions(array) {
+    array.forEach(editors);
 }
 
 function editors(func) {
