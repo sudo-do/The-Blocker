@@ -6,10 +6,14 @@ import storage from "./storage.js";
 i18n.render();
 loadLastPane();
 var iframe = dom.qs("#iframe");
+var paneToLoad = "";
 
 window.addEventListener('message', function (event) {
-    if (event.source === iframe.contentWindow) {
+    if (["tr", "en"].includes(event.data)) {
         i18n.render();
+    }
+    if (event.data === true) {
+        setSelectedTab();
     }
 });
 
@@ -19,34 +23,41 @@ dom.qsa(".tabButton").forEach((elem) => {
 
 function tabCliked(event) {
     var pane = dom.attr(event.target, "data-pane");
-    storage.set({"optionsLastPane": pane}, () => {
-        loadPane(pane);
-    });
+    loadPane(pane);
 }
 
 function loadLastPane() {
     storage.get("optionsLastPane", (result) => {
-        loadPane(result["optionsLastPane"]);
+        iframe.contentWindow.location.replace(result["optionsLastPane"]);
+        const tabButton = dom.qs(`[data-pane="${result["optionsLastPane"]}"]`);
+        tabButton.classList.add("selected");
+        tabButton.scrollIntoView();
     });
 }
 
 function loadPane(pane) {
-    const tabButton = dom.qs(`[data-pane="${pane}"]`);
+    paneToLoad = pane;
+    const tabButton = dom.qs(`[data-pane="${paneToLoad}"]`);
     if (tabButton.classList.contains("selected")) {
         return;
     }
 
-    iframe.contentWindow.location.replace(pane);
+    iframe.contentWindow.location.replace(paneToLoad);
 
-    var saveButton = iframe.contentWindow.document.querySelector("#applyButton");
-    if (saveButton && !saveButton.disabled) {
+    if (dom.attr(dom.qs(".tabButton.selected"), "data-pane") === "filters.html") {
         return;
     }
-    
-    self.location.replace(`#${pane}`);
+
+    setSelectedTab();
+}
+
+function setSelectedTab() {
+    const tabButton = dom.qs(`[data-pane="${paneToLoad}"]`);
+    window.location.replace(`#${paneToLoad}`);
     dom.qsa(".tabButton.selected").forEach((elem) => {
         elem.classList.remove("selected");
     });
     tabButton.classList.add("selected");
     tabButton.scrollIntoView();
+    storage.set({ "optionsLastPane": paneToLoad });
 }
