@@ -94,11 +94,18 @@ function setEditorCursors(editor) {
 }
 
 function setEditorChanges(editor) {
+    editor.on("beforeChange", beforeFiltersChanged);
     editor.on("changes", filtersChanged);
 }
 
 function clearHistory(editor) {
     editor.clearHistory();
+}
+
+function beforeFiltersChanged(instance, changeObj) {
+    if (changeObj.text["0"].length && /[^\d]/g.test(changeObj.text)) {
+        changeObj.cancel();
+    }
 }
 
 function filtersChanged(changed) {
