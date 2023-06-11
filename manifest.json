@@ -62,7 +62,6 @@
         "page": "options.html"
     },
     "permissions": [
-        "activeTab",
         "offscreen",
         "scripting",
         "storage",
