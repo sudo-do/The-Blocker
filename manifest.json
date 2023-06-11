@@ -46,7 +46,7 @@
     ],
     "default_locale": "tr",
     "description": "__MSG_extensionDescription__",
-    "homepage_url": "https://www.technopat.net/sosyal/uye/40435",
+    "homepage_url": "https://github.com/J3ekir/The-Blocker",
     "host_permissions": ["https://www.technopat.net/sosyal/*"],
     "icons": {
         "16": "img/icon_dark_16.png",
