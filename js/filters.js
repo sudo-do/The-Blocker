@@ -109,14 +109,10 @@ function beforeFiltersChanged(instance, changeObj) {
 }
 
 function filtersChanged(changed) {
-    var userText = getEditorText(userEditor);
-    var avatarText = getEditorText(avatarEditor);
-    var signatureText = getEditorText(signatureEditor);
-
     if (
-        cache.user === userText &&
-        cache.avatar === avatarText &&
-        cache.signature === signatureText
+        cache.user === getEditorText(userEditor) &&
+        cache.avatar === getEditorText(avatarEditor) &&
+        cache.signature === getEditorText(signatureEditor)
     ) {
         saveButton.disabled = true;
         return;
