@@ -103,7 +103,7 @@ function clearHistory(editor) {
 }
 
 function beforeFiltersChanged(instance, changeObj) {
-    if (changeObj.text["0"].length && /[^\d]/g.test(changeObj.text)) {
+    if (/[^\d]/g.test(changeObj.text.join(""))) {
         changeObj.cancel();
     }
 }
