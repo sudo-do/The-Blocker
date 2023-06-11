@@ -17,6 +17,17 @@ window.addEventListener('message', function (event) {
     }
 });
 
+document.addEventListener("keydown", (event) => {
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
+        event.preventDefault();
+
+        var saveButton = iframe.contentWindow.document.querySelector("#applyButton");
+        if (saveButton && !saveButton.disabled) {
+            saveButton.click();
+        }
+    }
+});
+
 dom.qsa(".tabButton").forEach((elem) => {
     elem.addEventListener("click", tabCliked);
 });

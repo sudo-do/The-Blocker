@@ -130,6 +130,20 @@ window.addEventListener("beforeunload", (event) => {
     event.returnValue = '';
 });
 
+window.addEventListener("unload", (event) => {
+    parent.postMessage(true, "*");
+});
+
+document.addEventListener("keydown", (event) => {
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
+        event.preventDefault();
+
+        if (!saveButton.disabled) {
+            saveButton.click();
+        }
+    }
+});
+
 saveButton.addEventListener("click", async () => {
     await saveEditorText();
     editors(clearHistory);
