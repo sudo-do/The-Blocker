@@ -15,8 +15,6 @@ window.addEventListener('message', function (event) {
             break;
         case "title":
             document.title = event.data["title"];
-
-            console.log(`title: ${event.data["title"]}`);
             break;
         case "language":
             i18n.render();
