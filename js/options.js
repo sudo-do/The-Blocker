@@ -42,8 +42,7 @@ dom.qsa(".tabButton").forEach((elem) => {
 });
 
 function tabCliked(event) {
-    var pane = dom.attr(event.target, "data-pane");
-    loadPane(pane);
+    loadPane(dom.attr(event.target, "data-pane"));
 }
 
 function loadLastPane() {
