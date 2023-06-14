@@ -65,7 +65,7 @@ svg {
 .codeMirrorContainer {
     flex-grow: 1;
     font-size: 16px;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 110px);
     word-wrap: normal;
 }
 
