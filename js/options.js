@@ -56,8 +56,8 @@ function loadLastPane() {
 
 function loadPane(pane) {
     paneToLoad = pane;
-    const tabButton = dom.qs(`[data-pane="${paneToLoad}"]`);
-    if (tabButton.classList.contains("selected")) {
+    
+    if (dom.qs(`[data-pane="${paneToLoad}"]`).classList.contains("selected")) {
         return;
     }
 
