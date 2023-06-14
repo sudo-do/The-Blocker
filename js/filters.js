@@ -27,10 +27,18 @@ var avatarEditor = new CodeMirror(dom.getById("avatarEditor"), codeMirrorOptions
 var signatureEditor = new CodeMirror(dom.getById("signatureEditor"), codeMirrorOptions);
 var saveButton = dom.qs("#applyButton");
 
-i18n.render();
-initializeEditors();
 
-async function initializeEditors() {
+init();
+
+
+async function init() {
+    await i18n.render();
+    parent.postMessage({
+        type: "title",
+        title: document.title,
+    }, "*");
+
+
     await setEditorText();
     setEditorFocuses();
     functions([setEditorEmptyLines, setEditorCursors, setEditorChanges]);
@@ -131,7 +139,9 @@ window.addEventListener("beforeunload", (event) => {
 });
 
 window.addEventListener("unload", (event) => {
-    parent.postMessage(true, "*");
+    parent.postMessage({
+        type: "tab",
+    }, "*");
 });
 
 document.addEventListener("keydown", (event) => {

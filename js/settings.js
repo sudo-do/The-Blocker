@@ -7,10 +7,17 @@ var buttons = ["settingsButtonsUser", "settingsButtonsAvatar", "settingsButtonsS
 var inputs = dom.qsa("[data-setting-name]");
 var language = dom.qs("#language");
 
+
 init();
-i18n.render();
+
 
 async function init() {
+    await i18n.render();
+    parent.postMessage({
+        type: "title",
+        title: document.title,
+    }, "*");
+
     var settings = await storage.get(null);
 
     language.value = settings["language"];
@@ -25,8 +32,11 @@ async function init() {
 async function languageChanged(event) {
     var selectedLanguage = language.value;
     await storage.set({"language": selectedLanguage});
-    parent.postMessage(selectedLanguage, "*");
     i18n.render();
+    parent.postMessage({
+        type: "language",
+        language: selectedLanguage,
+    }, "*");
 }
 
 async function settingChanged(event) {

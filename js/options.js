@@ -9,11 +9,20 @@ var iframe = dom.qs("#iframe");
 var paneToLoad = "";
 
 window.addEventListener('message', function (event) {
-    if (["tr", "en"].includes(event.data)) {
-        i18n.render();
-    }
-    if (event.data === true) {
-        setSelectedTab();
+    switch (event.data["type"]) {
+        case "tab":
+            setSelectedTab();
+            break;
+        case "title":
+            document.title = event.data["title"];
+
+            console.log(`title: ${event.data["title"]}`);
+            break;
+        case "language":
+            i18n.render();
+            break;
+        default:
+            break;
     }
 });
 
