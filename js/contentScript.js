@@ -164,9 +164,10 @@ var cloneSignatureButton = cloneButton.cloneNode(true);
         return buttons;
     }
 
-    function blockFunction(type, userId) {
+    function blockFunction(buttonType, userId) {
         chrome.runtime.sendMessage({
-            type: type,
+            type: "block",
+            buttonType: buttonType,
             userId: userId
         });
     }
