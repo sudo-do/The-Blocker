@@ -11,19 +11,12 @@ i18n.get = function (key) {
 
 i18n.render = async function () {
     this.settings = await storage.get(null);
-    this.setDataTitle();
     this.setData();
 }
 
 i18n.setData = function () {
     dom.qsa("[data-i18n]").forEach(async (elem) => {
         elem.textContent = this.get(dom.attr(elem, "data-i18n"));
-    });
-}
-
-i18n.setDataTitle = function () {
-    dom.qsa("[data-i18n-title]").forEach(async (elem) => {
-        dom.attr(elem, "title", this.get(dom.attr(elem, "data-i18n-title")));
     });
 }
 
