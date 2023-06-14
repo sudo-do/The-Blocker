@@ -117,10 +117,17 @@ async function createOffscreen(path = "offscreen.html") {
 
 async function injectCSS(tabId) {
     var result = await storage.get("CSS");
+    
     chrome.scripting.insertCSS({
         target: { tabId: tabId },
         origin: "USER",
         css: result["CSS"]
+    });
+
+    chrome.scripting.insertCSS({
+        target: { tabId: tabId },
+        origin: "USER",
+        files: ["css/buttonStyle.css"]
     });
 }
 

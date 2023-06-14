@@ -21,12 +21,9 @@ cloneReportButton.setAttribute("data-xf-click", "overlay");
 
 var cloneButton = document.createElement("a");
 cloneButton.className = "actionBar-action actionBar-action--block";
-cloneButton.style.cursor = "pointer";
 
 var cloneSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 cloneSvg.setAttribute("viewBox", "-64 0 512 512"); 
-cloneSvg.setAttribute("height", "13");
-cloneSvg.setAttribute("style", `margin-bottom:-1px;margin-right:5px;`);
 
 var clonePath = document.createElementNS("http://www.w3.org/2000/svg", 'path');
 cloneSvg.appendChild(clonePath);

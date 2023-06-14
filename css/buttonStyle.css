@@ -1,0 +1,9 @@
+.actionBar-action--block {
+    cursor: pointer;
+}
+
+svg {
+    height: 13px;
+    margin-bottom: -1px;
+    margin-right: 5px;
+}
