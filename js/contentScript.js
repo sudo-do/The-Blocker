@@ -8,9 +8,6 @@ const SIGNATURE_ICON_SVG = "M8.01 504.06c-6.25-6.93-8.71-14.64-7.84-22.29 8.2-73
 
 const CSS_HIDE = "display:none!important;";
 
-var cloneActionBar = document.createElement("div");
-cloneActionBar.className = "message-actionBar actionBar";
-
 var cloneInternal = document.createElement("div");
 cloneInternal.className = "actionBar-set actionBar-set--internal";
 
@@ -71,6 +68,9 @@ cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
 
         // report ban and reaction ban
         if (messages.length === 0) {
+            var cloneActionBar = document.createElement("div");
+            cloneActionBar.className = "message-actionBar actionBar";
+
             for (const footer of document.querySelectorAll(".message-footer")) {
                 footer.prepend(cloneActionBar.cloneNode(true));
             }
