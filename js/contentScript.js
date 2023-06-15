@@ -10,28 +10,35 @@ const CSS_HIDE = "display:none!important;";
 
 var cloneActionBar = document.createElement("div");
 cloneActionBar.className = "message-actionBar actionBar";
+
 var cloneInternal = document.createElement("div");
 cloneInternal.className = "actionBar-set actionBar-set--internal";
+
 var cloneReportButton = document.createElement("a");
 cloneReportButton.className = "actionBar-action actionBar-action--report";
 cloneReportButton.setAttribute("data-xf-click", "overlay");
 
-var cloneButton = document.createElement("a");
-cloneButton.className = "actionBar-action actionBar-action--block";
+var cloneUserButton = document.createElement("a");
+cloneUserButton.className = "actionBar-action actionBar-action--block user";
+var cloneUserSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+cloneUserSvg.setAttribute("viewBox", "-64 0 512 512");
+cloneUserSvg.appendChild(document.createElementNS("http://www.w3.org/2000/svg", 'path'));
+cloneUserButton.append(cloneUserSvg, document.createElement("span"));
 
-var cloneSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-cloneSvg.setAttribute("viewBox", "-64 0 512 512"); 
+var cloneAvatarButton = document.createElement("a");
+cloneAvatarButton.className = "actionBar-action actionBar-action--block avatar";
+cloneAvatarButton.append(
+    cloneUserButton.firstElementChild.cloneNode(true),
+    cloneUserButton.lastElementChild.cloneNode(true)
+);
 
-var clonePath = document.createElementNS("http://www.w3.org/2000/svg", 'path');
-cloneSvg.appendChild(clonePath);
-
-var cloneSpan = document.createElement("span");
-
-cloneButton.append(cloneSvg, cloneSpan);
-
-var cloneUserButton = cloneButton.cloneNode(true);
-var cloneAvatarButton = cloneButton.cloneNode(true);
-var cloneSignatureButton = cloneButton.cloneNode(true);
+var cloneSignatureButton = document.createElement("a");
+cloneSignatureButton.className = "actionBar-action actionBar-action--block signature";
+cloneSignatureButton.append(
+    cloneUserButton.firstElementChild.cloneNode(true),
+    cloneUserButton.lastElementChild.cloneNode(true)
+);
+cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
 
 (async () => {
     var settings = await chrome.storage.local.get(null);
@@ -46,12 +53,6 @@ var cloneSignatureButton = cloneButton.cloneNode(true);
         cloneUserButton.title = settings[settings["language"]]["contentScriptUserButtonTitle"];
         cloneAvatarButton.title = settings[settings["language"]]["contentScriptAvatarButtonTitle"];
         cloneSignatureButton.title = settings[settings["language"]]["contentScriptSignatureButtonTitle"];
-
-        cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512"); 
-
-        cloneUserButton.firstElementChild.firstElementChild.setAttribute("d", USER_ICON_SVG);
-        cloneAvatarButton.firstElementChild.firstElementChild.setAttribute("d", AVATAR_ICON_SVG);
-        cloneSignatureButton.firstElementChild.firstElementChild.setAttribute("d", SIGNATURE_ICON_SVG);
         
         cloneUserButton.lastElementChild.textContent = settings[settings["language"]]["contentScriptUserButtonText"];
         cloneAvatarButton.lastElementChild.textContent = settings[settings["language"]]["contentScriptAvatarButtonText"];
