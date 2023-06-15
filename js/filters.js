@@ -16,17 +16,26 @@ var codeMirrorOptions = {
     },
 };
 
+var types = {
+    "userArray": "user",
+    "avatarArray": "avatar",
+    "signatureArray": "signature",
+};
+
+
+
+// var types = ["userArray", "avatarArray", "signatureArray"];
+
 var cache = {
     user: "",
     avatar: "",
     signature: "",
 };
 
-var userEditor = new CodeMirror(dom.getById("userEditor"), codeMirrorOptions);
-var avatarEditor = new CodeMirror(dom.getById("avatarEditor"), codeMirrorOptions);
-var signatureEditor = new CodeMirror(dom.getById("signatureEditor"), codeMirrorOptions);
+self.userEditor = new CodeMirror(dom.getById("userEditor"), codeMirrorOptions);
+self.avatarEditor = new CodeMirror(dom.getById("avatarEditor"), codeMirrorOptions);
+self.signatureEditor = new CodeMirror(dom.getById("signatureEditor"), codeMirrorOptions);
 var saveButton = dom.qs("#applyButton");
-
 
 init();
 
@@ -42,37 +51,37 @@ async function init() {
     await setEditorText();
     setEditorFocuses();
     functions([setEditorEmptyLines, setEditorCursors, setEditorChanges]);
-    userEditor.focus();
+    self.userEditor.focus();
     editors(clearHistory);
 }
 
 async function setEditorText() {
-    let result = await storage.get(["userArray", "avatarArray", "signatureArray"]);
+    let result = await storage.get(Object.keys(types));
     
     cache.user = result["userArray"].join("\n");
     cache.avatar = result["avatarArray"].join("\n");
     cache.signature = result["signatureArray"].join("\n");
 
-    userEditor.setValue(cache.user);
-    avatarEditor.setValue(cache.avatar);
-    signatureEditor.setValue(cache.signature);
+    self.userEditor.setValue(cache.user);
+    self.avatarEditor.setValue(cache.avatar);
+    self.signatureEditor.setValue(cache.signature);
 }
 
 function setEditorFocuses() {
-    userEditor.setOption("extraKeys", {
+    self.userEditor.setOption("extraKeys", {
         Tab: function (cm) {
-            avatarEditor.focus();
+            self.avatarEditor.focus();
         }
     });
     avatarEditor.setOption("extraKeys", {
         Tab: function (cm) {
-            signatureEditor.focus();
+            self.signatureEditor.focus();
         }
     });
     signatureEditor.setOption("extraKeys", {
         Tab: function (cm) {
             if (saveButton.disabled) {
-                userEditor.focus();
+                self.userEditor.focus();
             }
             else {
                 saveButton.focus();
@@ -86,9 +95,9 @@ function functions(array) {
 }
 
 function editors(func) {
-    func(userEditor);
-    func(avatarEditor);
-    func(signatureEditor);
+    func(self.userEditor);
+    func(self.avatarEditor);
+    func(self.signatureEditor);
 }
 
 function setEditorEmptyLines(editor) {
@@ -118,15 +127,32 @@ function beforeFiltersChanged(instance, changeObj) {
 
 function filtersChanged(changed) {
     if (
-        cache.user === getEditorText(userEditor) &&
-        cache.avatar === getEditorText(avatarEditor) &&
-        cache.signature === getEditorText(signatureEditor)
+        cache.user === getEditorText(self.userEditor) &&
+        cache.avatar === getEditorText(self.avatarEditor) &&
+        cache.signature === getEditorText(self.signatureEditor)
     ) {
         saveButton.disabled = true;
         return;
     }
 
     saveButton.disabled = !changed;
+}
+
+chrome.storage.onChanged.addListener(async (changes, areaName) => {
+    Object.keys(changes).forEach(async (key) => {
+        if (types.hasOwnProperty(key)) {
+            const cacheKey = types[key];
+            storageChangeHandler(changes[key].newValue, window[`${cacheKey}Editor`], cacheKey);
+        }
+    });
+});
+
+function storageChangeHandler(newValue, editor, cacheKey) {
+    cache[cacheKey] = newValue.join("\n");
+    editor.setValue(cache[cacheKey]);
+    setEditorEmptyLines(editor);
+    setEditorCursors(editor);
+    editor.focus();
 }
 
 window.addEventListener("beforeunload", (event) => {
@@ -161,9 +187,9 @@ saveButton.addEventListener("click", async () => {
 });
 
 async function saveEditorText() {
-    var userText = getEditorText(userEditor);
-    var avatarText = getEditorText(avatarEditor);
-    var signatureText = getEditorText(signatureEditor);
+    var userText = getEditorText(self.userEditor);
+    var avatarText = getEditorText(self.avatarEditor);
+    var signatureText = getEditorText(self.signatureEditor);
 
     cache.user = userText;
     cache.avatar = avatarText;
