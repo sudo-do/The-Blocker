@@ -94,22 +94,17 @@ var cloneSignatureButton = cloneButton.cloneNode(true);
             }
 
             if (!messages[i].querySelector(".actionBar-action--block")) {
-                // daha güzel olabilir
-                var blockButtons = makeBlockButtons(userIds, i);
-                for (button in blockButtons) {
-                    messages[i].lastElementChild.append(blockButtons[button]);
-                }
+                messages[i].lastElementChild.append(...makeBlockButtons(userIds, i));
             }
         }
     }
 
     function makeBlockButtons(userIds, i) {
-        var buttons = {};
+        var buttons = [];
 
         if (settings["settingsButtonsUser"]) {
-            buttons.userButton = cloneUserButton.cloneNode(true);
-
-            buttons.userButton.addEventListener("click", () => {
+            var userButton = cloneUserButton.cloneNode(true);
+            userButton.addEventListener("click", () => {
                 if (selfBlockCheck(userIds[i])) {
                     console.log(settings[settings["language"]]["contentScriptSelfBlockText"]);
                     return;
@@ -122,11 +117,14 @@ var cloneSignatureButton = cloneButton.cloneNode(true);
 
                 blockFunction("user", userIds[i]);
             });
+
+            buttons.push(userButton);
         }
 
         if (settings["settingsButtonsAvatar"]) {
-            buttons.avatarButton = cloneAvatarButton.cloneNode(true);
-            buttons.avatarButton.addEventListener("click", () => {
+            var avatarButton = cloneAvatarButton.cloneNode(true);
+
+            avatarButton.addEventListener("click", () => {
                 if (selfBlockCheck(userIds[i])) {
                     console.log(settings[settings["language"]]["contentScriptSelfBlockText"]);
                     return;
@@ -139,11 +137,14 @@ var cloneSignatureButton = cloneButton.cloneNode(true);
 
                 blockFunction("avatar", userIds[i]);
             });
+
+            buttons.push(avatarButton);
         }
 
         if (settings["settingsButtonsSignature"]) {
-            buttons.signatureButton = cloneSignatureButton.cloneNode(true);
-            buttons.signatureButton.addEventListener("click", () => {
+            var signatureButton = cloneSignatureButton.cloneNode(true);
+
+            signatureButton.addEventListener("click", () => {
                 if (selfBlockCheck(userIds[i])) {
                     console.log(settings[settings["language"]]["contentScriptSelfBlockText"]);
                     return;
@@ -156,6 +157,8 @@ var cloneSignatureButton = cloneButton.cloneNode(true);
 
                 blockFunction("signature", userIds[i]);
             });
+
+            buttons.push(signatureButton);
         }
 
         return buttons;
