@@ -85,6 +85,32 @@ chrome.runtime.onMessage.addListener(
                 console.log(`user ID: ${request.userId}, ${request.buttonType} blocked`);
 
                 break;
+            case "unblock":
+                // is userId a number?
+                if (!request.userId || request.userId.match(/^[0-9]+$/) === null) {
+                    // i18n
+                    console.log(`user ID is not a number: ${request.userId}`);
+                    return;
+                }
+
+                settings = await storage.get(null);
+
+                var [typeArray, typeCount] = types[request.buttonType];
+
+                settings[typeArray].splice(settings[typeArray].indexOf(request.userId), 1);
+                var newCount = settings[typeCount] - 1;
+                var newValues = {
+                    [typeArray]: settings[typeArray],
+                    [typeCount]: newCount
+                };
+
+                await storage.set(newValues);
+                await storage.setCSS();
+
+                // i18n
+                console.log(`user ID: ${request.userId}, ${request.buttonType} unblocked`);
+
+                break;
             default:
                 break;
         }
