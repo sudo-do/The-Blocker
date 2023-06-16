@@ -63,11 +63,11 @@ storage.setCSS = async function () {
     var isAnyUserFiltersAreUsed = Object.keys(this.userKeys).some(key => this.settings[key]);
 
     if (this.settings["settingsAvatars"] && this.settings["avatarArray"].length) {
-        avatarCSS = `:is(a[data-user-id="${this.settings["avatarArray"].join(`"],a[data-user-id="`)}"])>img{display:none!important;}`;
+        avatarCSS = `:is(#theBlocker, a[data-user-id="${this.settings["avatarArray"].join(`"],a[data-user-id="`)}"])>img{display:none;}`;
     }
 
     if (this.settings["settingsSignatures"] && this.settings["signatureArray"].length) {
-        signatureCSS = `.message-signature:has(.js-userSignature-${this.settings["signatureArray"].join(`,.js-userSignature-`)}){display:none!important;}`;
+        signatureCSS = `.message-signature:has(#theBlocker, .js-userSignature-${this.settings["signatureArray"].join(`,.js-userSignature-`)}){display:none;}`;
     }
 
     if (this.settings["settingsQuotes"] && this.settings["userArray"].length) {
