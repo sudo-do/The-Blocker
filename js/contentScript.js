@@ -102,19 +102,20 @@ cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
 
         if (settings["settingsButtonsUser"]) {
             var userButton = cloneUserButton.cloneNode(true);
-            userButton.addEventListener("click", () => {
-                if (selfBlockCheck(userIds[i])) {
-                    console.log(settings[settings["language"]]["contentScriptSelfBlockText"]);
-                    return;
-                }
 
-                document.querySelectorAll(`:is(article:has(a[data-user-id="${userIds[i]}"]),blockquote[data-attributes="member: ${userIds[i]}"],.block-row:has(a[data-user-id="${userIds[i]}"]))`)
-                .forEach((elem) => {
-                    elem.style.cssText = CSS_HIDE;
+            if (selfBlockCheck(userIds[i])) {
+                userButton.style.cssText = CSS_HIDE;
+            }
+            else {
+                userButton.addEventListener("click", () => {
+                    document.querySelectorAll(`:is(article:has(a[data-user-id="${userIds[i]}"]),blockquote[data-attributes="member: ${userIds[i]}"],.block-row:has(a[data-user-id="${userIds[i]}"]))`)
+                        .forEach((elem) => {
+                            elem.style.cssText = CSS_HIDE;
+                        });
+
+                    blockFunction("user", userIds[i]);
                 });
-
-                blockFunction("user", userIds[i]);
-            });
+            }
 
             buttons.push(userButton);
         }
@@ -122,19 +123,24 @@ cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
         if (settings["settingsButtonsAvatar"]) {
             var avatarButton = cloneAvatarButton.cloneNode(true);
 
-            avatarButton.addEventListener("click", () => {
-                if (selfBlockCheck(userIds[i])) {
-                    console.log(settings[settings["language"]]["contentScriptSelfBlockText"]);
-                    return;
-                }
+            if (selfBlockCheck(userIds[i])) {
+                avatarButton.style.cssText = CSS_HIDE;
+            }
+            else {
+                avatarButton.addEventListener("click", () => {
+                    if (selfBlockCheck(userIds[i])) {
+                        console.log(settings[settings["language"]]["contentScriptSelfBlockText"]);
+                        return;
+                    }
 
-                document.querySelectorAll(`a[data-user-id="${userIds[i]}"]>img`)
-                .forEach((elem) => {
-                    elem.style.cssText = CSS_HIDE;
+                    document.querySelectorAll(`a[data-user-id="${userIds[i]}"]>img`)
+                        .forEach((elem) => {
+                            elem.style.cssText = CSS_HIDE;
+                        });
+
+                    blockFunction("avatar", userIds[i]);
                 });
-
-                blockFunction("avatar", userIds[i]);
-            });
+            }
 
             buttons.push(avatarButton);
         }
@@ -142,19 +148,24 @@ cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
         if (settings["settingsButtonsSignature"]) {
             var signatureButton = cloneSignatureButton.cloneNode(true);
 
-            signatureButton.addEventListener("click", () => {
-                if (selfBlockCheck(userIds[i])) {
-                    console.log(settings[settings["language"]]["contentScriptSelfBlockText"]);
-                    return;
-                }
+            if (selfBlockCheck(userIds[i])) {
+                signatureButton.style.cssText = CSS_HIDE;
+            }
+            else {
+                signatureButton.addEventListener("click", () => {
+                    if (selfBlockCheck(userIds[i])) {
+                        console.log(settings[settings["language"]]["contentScriptSelfBlockText"]);
+                        return;
+                    }
 
-                document.querySelectorAll(`.message-signature:has(.js-userSignature-${userIds[i]})`)
-                .forEach((elem) => {
-                    elem.style.cssText = CSS_HIDE;
+                    document.querySelectorAll(`.message-signature:has(.js-userSignature-${userIds[i]})`)
+                        .forEach((elem) => {
+                            elem.style.cssText = CSS_HIDE;
+                        });
+
+                    blockFunction("signature", userIds[i]);
                 });
-
-                blockFunction("signature", userIds[i]);
-            });
+            }
 
             buttons.push(signatureButton);
         }
