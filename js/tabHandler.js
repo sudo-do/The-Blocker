@@ -6,7 +6,6 @@ var tabWrapper = document.querySelector(`.tab-wrapper.widget-group`);
 var buttons = tabWrapper.firstElementChild.firstElementChild.firstElementChild.children;
 var cloneMenuHandler = tabWrapper.firstElementChild.cloneNode(true);
 var cloneButtons = cloneMenuHandler.firstElementChild.firstElementChild.children;
-cloneMenuHandler.style = "margin-top:-12px;margin-bottom:20px;border-bottom:none;border-top:1px solid #414141";
 cloneMenuHandler.id = "cloneMenuHandler";
 
 

@@ -147,7 +147,7 @@ async function tabHandlerCSS(tabId) {
     chrome.scripting.insertCSS({
         target: { tabId: tabId },
         origin: "USER",
-        css: "#cloneMenuHandler .tabs-tab.is-active{border-color:#366484;}#cloneMenuHandler .tabs-tab{border-bottom:none!important;border-top:3px solid transparent;padding:4px 15px 5px!important;}"
+        css: "#cloneMenuHandler{margin-top:-12px!important;margin-bottom:20px!important;border-bottom:none!important;border-top:1px solid #414141!important;}#cloneMenuHandler .tabs-tab{border-bottom:none!important;border-top:3px solid transparent;padding:4px 15px 5px!important;}"
     });
 }
 
