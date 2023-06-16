@@ -105,9 +105,9 @@ cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
             else {
                 userButton.addEventListener("click", (event) => {
                     document.querySelectorAll(`:is(article:has(a[data-user-id="${userIds[i]}"]),blockquote[data-attributes="member: ${userIds[i]}"],.block-row:has(a[data-user-id="${userIds[i]}"]))`)
-                        .forEach((elem) => {
-                            elem.style.cssText = CSS_HIDE;
-                        });
+                    .forEach((elem) => {
+                        elem.style.cssText = CSS_HIDE;
+                    });
 
                     blockFunction("user", userIds[i]);
                 });
@@ -125,9 +125,9 @@ cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
             else {
                 avatarButton.addEventListener("click", (event) => {
                     document.querySelectorAll(`a[data-user-id="${userIds[i]}"]>img`)
-                        .forEach((elem) => {
-                            elem.style.cssText = CSS_HIDE;
-                        });
+                    .forEach((elem) => {
+                        elem.style.cssText = CSS_HIDE;
+                    });
 
                     blockFunction("avatar", userIds[i]);
                 });
@@ -145,9 +145,9 @@ cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
             else {
                 signatureButton.addEventListener("click", (event) => {
                     document.querySelectorAll(`.message-signature:has(.js-userSignature-${userIds[i]})`)
-                        .forEach((elem) => {
-                            elem.style.cssText = CSS_HIDE;
-                        });
+                    .forEach((elem) => {
+                        elem.style.cssText = CSS_HIDE;
+                    });
 
                     blockFunction("signature", userIds[i]);
                 });
