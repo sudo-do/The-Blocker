@@ -65,9 +65,15 @@ chrome.runtime.onMessage.addListener(
 
                 var [typeArray, typeCount] = types[request.buttonType];
 
+                if (settings[typeArray].includes(request.userId)) {
+                    // i18n
+                    console.log(`user ID: ${request.userId}, ${request.buttonType} is already blocked`);
+                    return;
+                }
+
                 settings[typeArray].push(request.userId);
-                const newCount = settings[typeCount] + 1;
-                const newValues = {
+                var newCount = settings[typeCount] + 1;
+                var newValues = {
                     [typeArray]: settings[typeArray],
                     [typeCount]: newCount
                 };
