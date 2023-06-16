@@ -105,6 +105,12 @@
         "contentScriptUserButtonText": "Block",
         "contentScriptAvatarButtonText": "Block avatar",
         "contentScriptSignatureButtonText": "Block signature",
+        "contentScriptUserButtonUnblockTitle": "-",
+        "contentScriptAvatarButtonUnblockTitle": "Unblock avatar",
+        "contentScriptSignatureButtonUnblockTitle": "Unblock signature",
+        "contentScriptUserButtonUnblockText": "-",
+        "contentScriptAvatarButtonUnblockText": "Unblock avatar",
+        "contentScriptSignatureButtonUnblockText": "Unblock signature",
         "contentScriptReportButtonText": "Report",
         "contentScriptSelfBlockText": "Do not block yourself"
     },
@@ -176,6 +182,12 @@
         "contentScriptUserButtonText": "Engelle",
         "contentScriptAvatarButtonText": "Avatar engelle",
         "contentScriptSignatureButtonText": "İmza engelle",
+        "contentScriptUserButtonUnblockTitle": "-",
+        "contentScriptAvatarButtonUnblockTitle": "Avatarı göster",
+        "contentScriptSignatureButtonUnblockTitle": "İmzayı göster",
+        "contentScriptUserButtonUnblockText": "-",
+        "contentScriptAvatarButtonUnblockText": "Avatarı göster",
+        "contentScriptSignatureButtonUnblockText": "İmzayı göster",
         "contentScriptReportButtonText": "Rapor",
         "contentScriptSelfBlockText": "Kendini engelleme"
     }

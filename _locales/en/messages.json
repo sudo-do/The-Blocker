@@ -171,6 +171,24 @@
     "contentScriptSignatureButtonText": {
         "message": "Block signature"
     },
+    "contentScriptUserButtonUnblockTitle": {
+        "message": "-"
+    },
+    "contentScriptAvatarButtonUnblockTitle": {
+        "message": "Unblock avatar"
+    },
+    "contentScriptSignatureButtonUnblockTitle": {
+        "message": "Unblock signature"
+    },
+    "contentScriptUserButtonUnblockText": {
+        "message": "-"
+    },
+    "contentScriptAvatarButtonUnblockText": {
+        "message": "Unblock avatar"
+    },
+    "contentScriptSignatureButtonUnblockText": {
+        "message": "Unblock signature"
+    },
     "contentScriptReportButtonText": {
         "message": "Report"
     },

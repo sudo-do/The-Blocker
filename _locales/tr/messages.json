@@ -171,6 +171,24 @@
     "contentScriptSignatureButtonText": {
         "message": "İmza engelle"
     },
+    "contentScriptUserButtonUnblockTitle": {
+        "message": "-"
+    },
+    "contentScriptAvatarButtonUnblockTitle": {
+        "message": "Avatarı göster"
+    },
+    "contentScriptSignatureButtonUnblockTitle": {
+        "message": "İmzayı göster"
+    },
+    "contentScriptUserButtonUnblockText": {
+        "message": "-"
+    },
+    "contentScriptAvatarButtonUnblockText": {
+        "message": "Avatarı göster"
+    },
+    "contentScriptSignatureButtonUnblockText": {
+        "message": "İmzayı göster"
+    },
     "contentScriptReportButtonText": {
         "message": "Rapor"
     },
