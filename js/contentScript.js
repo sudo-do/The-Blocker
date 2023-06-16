@@ -12,21 +12,21 @@ cloneReportButton.className = "actionBar-action actionBar-action--report";
 cloneReportButton.setAttribute("data-xf-click", "overlay");
 
 var cloneUserButton = document.createElement("a");
-cloneUserButton.className = "actionBar-action actionBar-action--block user";
+cloneUserButton.className = "actionBar-action actionBar-action--block userButton";
 var cloneUserSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 cloneUserSvg.setAttribute("viewBox", "-64 0 512 512");
 cloneUserSvg.appendChild(document.createElementNS("http://www.w3.org/2000/svg", 'path'));
 cloneUserButton.append(cloneUserSvg, document.createElement("span"));
 
 var cloneAvatarButton = document.createElement("a");
-cloneAvatarButton.className = "actionBar-action actionBar-action--block avatar";
+cloneAvatarButton.className = "actionBar-action actionBar-action--block avatarButton";
 cloneAvatarButton.append(
     cloneUserButton.firstElementChild.cloneNode(true),
     cloneUserButton.lastElementChild.cloneNode(true)
 );
 
 var cloneSignatureButton = document.createElement("a");
-cloneSignatureButton.className = "actionBar-action actionBar-action--block signature";
+cloneSignatureButton.className = "actionBar-action actionBar-action--block signatureButton";
 cloneSignatureButton.append(
     cloneUserButton.firstElementChild.cloneNode(true),
     cloneUserButton.lastElementChild.cloneNode(true)
