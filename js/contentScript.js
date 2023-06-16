@@ -128,11 +128,6 @@ cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
             }
             else {
                 avatarButton.addEventListener("click", () => {
-                    if (selfBlockCheck(userIds[i])) {
-                        console.log(settings[settings["language"]]["contentScriptSelfBlockText"]);
-                        return;
-                    }
-
                     document.querySelectorAll(`a[data-user-id="${userIds[i]}"]>img`)
                         .forEach((elem) => {
                             elem.style.cssText = CSS_HIDE;
@@ -153,11 +148,6 @@ cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
             }
             else {
                 signatureButton.addEventListener("click", () => {
-                    if (selfBlockCheck(userIds[i])) {
-                        console.log(settings[settings["language"]]["contentScriptSelfBlockText"]);
-                        return;
-                    }
-
                     document.querySelectorAll(`.message-signature:has(.js-userSignature-${userIds[i]})`)
                         .forEach((elem) => {
                             elem.style.cssText = CSS_HIDE;
