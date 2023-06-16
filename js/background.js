@@ -120,13 +120,13 @@ async function injectCSS(tabId) {
     
     chrome.scripting.insertCSS({
         target: { tabId: tabId },
-        origin: "USER",
+        origin: "AUTHOR",
         css: result["CSS"]
     });
 
     chrome.scripting.insertCSS({
         target: { tabId: tabId },
-        origin: "USER",
+        origin: "AUTHOR",
         files: ["css/buttons.css"]
     });
 }
