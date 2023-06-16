@@ -67,7 +67,7 @@ storage.setCSS = async function () {
     }
 
     if (this.settings["settingsSignatures"] && this.settings["signatureArray"].length) {
-        signatureCSS = `.message-signature:has(#theBlocker, .js-userSignature-${this.settings["signatureArray"].join(`,.js-userSignature-`)}){display:none;}`;
+        signatureCSS = `.message-signature:has(.js-userSignature-${this.settings["signatureArray"].join(`,.js-userSignature-`)}){display:none;}`;
     }
 
     if (this.settings["settingsQuotes"] && this.settings["userArray"].length) {
