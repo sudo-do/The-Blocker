@@ -2,7 +2,8 @@
 // import i18n from "./i18n.js";
 // import storage from "./storage.js";
 
-const CSS_HIDE = "display:none!important;";
+const CSS_HIDE = "theBlocker-hide";
+const CSS_SHOW = "theBlocker-show";
 
 var cloneInternal = document.createElement("div");
 cloneInternal.className = "actionBar-set actionBar-set--internal";
@@ -36,6 +37,10 @@ cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
 (async () => {
     var settings = await chrome.storage.local.get(null);
 
+    var postIds;
+    var userIds;
+    var messages;
+
     initCloneButtons();
     blockButtons();
     observe();
@@ -53,9 +58,9 @@ cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
     }
 
     function blockButtons() {
-        var postIds = Array.prototype.map.call(document.querySelectorAll(".message-userContent.lbContainer.js-lbContainer"), node => node.getAttribute("data-lb-id").slice(5));
-        var userIds = Array.prototype.map.call(document.querySelectorAll(".message-name>:is(a, span)"), node => node.getAttribute("data-user-id"));
-        var messages = document.querySelectorAll(".message-actionBar.actionBar");
+        postIds = Array.prototype.map.call(document.querySelectorAll(".message-userContent.lbContainer.js-lbContainer"), node => node.getAttribute("data-lb-id").slice(5));
+        userIds = Array.prototype.map.call(document.querySelectorAll(".message-name>:is(a, span)"), node => node.getAttribute("data-user-id"));
+        messages = document.querySelectorAll(".message-actionBar.actionBar");
 
         // if article
         if (userIds.length === postIds.length - 1) {
@@ -88,25 +93,25 @@ cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
             }
 
             if (!messages[i].querySelector(".actionBar-action--block")) {
-                messages[i].lastElementChild.append(...makeBlockButtons(userIds, i));
+                messages[i].lastElementChild.append(...makeBlockButtons(i));
             }
         }
     }
 
-    function makeBlockButtons(userIds, i) {
+    function makeBlockButtons(i) {
         var buttons = [];
 
         if (settings["settingsButtonsUser"]) {
             var userButton = cloneUserButton.cloneNode(true);
 
             if (selfBlockCheck(userIds[i])) {
-                userButton.style.cssText = CSS_HIDE;
+                userButton.classList.add(CSS_HIDE);
             }
             else {
                 userButton.addEventListener("click", (event) => {
                     document.querySelectorAll(`:is(article:has(a[data-user-id="${userIds[i]}"]),blockquote[data-attributes="member: ${userIds[i]}"],.block-row:has(a[data-user-id="${userIds[i]}"]))`)
                     .forEach((elem) => {
-                        elem.style.cssText = CSS_HIDE;
+                        elem.classList.add(CSS_HIDE);
                     });
 
                     blockFunction("user", userIds[i]);
@@ -120,17 +125,15 @@ cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
             var avatarButton = cloneAvatarButton.cloneNode(true);
 
             if (selfBlockCheck(userIds[i])) {
-                avatarButton.style.cssText = CSS_HIDE;
+                avatarButton.classList.add(CSS_HIDE);
             }
             else {
-                avatarButton.addEventListener("click", (event) => {
-                    document.querySelectorAll(`a[data-user-id="${userIds[i]}"]>img`)
-                    .forEach((elem) => {
-                        elem.style.cssText = CSS_HIDE;
-                    });
+                if (settings["avatarArray"].includes(userIds[i])) {
+                    avatarButton.title = settings[settings["language"]]["contentScriptAvatarButtonUnblockTitle"];
+                    avatarButton.lastElementChild.textContent = settings[settings["language"]]["contentScriptAvatarButtonUnblockText"];
+                }
 
-                    blockFunction("avatar", userIds[i]);
-                });
+                avatarButton.addEventListener("click", blockToggle);
             }
 
             buttons.push(avatarButton);
@@ -140,17 +143,15 @@ cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
             var signatureButton = cloneSignatureButton.cloneNode(true);
 
             if (selfBlockCheck(userIds[i])) {
-                signatureButton.style.cssText = CSS_HIDE;
+                signatureButton.classList.add(CSS_HIDE);
             }
             else {
-                signatureButton.addEventListener("click", (event) => {
-                    document.querySelectorAll(`.message-signature:has(.js-userSignature-${userIds[i]})`)
-                    .forEach((elem) => {
-                        elem.style.cssText = CSS_HIDE;
-                    });
-
-                    blockFunction("signature", userIds[i]);
-                });
+                if (settings["signatureArray"].includes(userIds[i])) {
+                    signatureButton.title = settings[settings["language"]]["contentScriptSignatureButtonUnblockTitle"];
+                    signatureButton.lastElementChild.textContent = settings[settings["language"]]["contentScriptSignatureButtonUnblockText"];
+                }
+                
+                signatureButton.addEventListener("click", blockToggle);
             }
 
             buttons.push(signatureButton);
@@ -159,9 +160,69 @@ cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
         return buttons;
     }
 
+    async function blockToggle(event) {
+        var userId = event.currentTarget.closest("article").querySelector("a[data-user-id]").getAttribute("data-user-id");
+        var type = event.currentTarget.classList.item(event.currentTarget.classList.length - 1).replace(/Button$/, "");
+        var typeCapital = `${type[0].toUpperCase()}${type.slice(1)}`;
+        var buttons = document.querySelectorAll(`.actionBar-action--block.${type}Button`);
+        var query;
+
+        settings = await chrome.storage.local.get(null);
+
+        switch (type) {
+            case "avatar":
+                query = document.querySelectorAll(`a[data-user-id="${userId}"]>img`);
+                break;
+            case "signature":
+                query = document.querySelectorAll(`.message-signature:has(.js-userSignature-${userId})`);
+                break;
+            default:
+                break;
+        }
+
+        if (settings[`${type}Array`].includes(userId)) {
+            unblockFunction(type, userId);
+
+            query.forEach((elem) => {
+                elem.classList.remove(CSS_HIDE);
+                elem.classList.add(CSS_SHOW);
+            });
+
+            userIds.forEach((elem, i) => {
+                if (elem === userId) {
+                    buttons[i].title = settings[settings["language"]][`contentScript${typeCapital}ButtonTitle`];
+                    buttons[i].lastElementChild.textContent = settings[settings["language"]][`contentScript${typeCapital}ButtonText`];
+                }
+            });
+        }
+        else {
+            blockFunction(type, userId);
+
+            query.forEach((elem) => {
+                elem.classList.add(CSS_HIDE);
+                elem.classList.remove(CSS_SHOW);
+            });
+
+            userIds.forEach((elem, i) => {
+                if (elem === userId) {
+                    buttons[i].title = settings[settings["language"]][`contentScript${typeCapital}ButtonUnblockTitle`];
+                    buttons[i].lastElementChild.textContent = settings[settings["language"]][`contentScript${typeCapital}ButtonUnblockText`];
+                }
+            });
+        }
+    }
+
     function blockFunction(buttonType, userId) {
         chrome.runtime.sendMessage({
             type: "block",
+            buttonType: buttonType,
+            userId: userId
+        });
+    }
+
+    function unblockFunction(buttonType, userId) {
+        chrome.runtime.sendMessage({
+            type: "unblock",
             buttonType: buttonType,
             userId: userId
         });
