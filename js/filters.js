@@ -180,7 +180,7 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-saveButton.addEventListener("click", async () => {
+saveButton.addEventListener("click", async (event) => {
     await saveEditorText();
     editors(clearHistory);
     saveButton.disabled = true;
