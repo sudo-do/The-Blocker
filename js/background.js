@@ -175,7 +175,7 @@ function setIcon(theme) {
     });
 }
 
-async function tabHandlerCSS(tabId) {
+function tabHandlerCSS(tabId) {
     chrome.scripting.insertCSS({
         target: { tabId: tabId },
         origin: "USER",

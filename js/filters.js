@@ -138,8 +138,8 @@ function filtersChanged(changed) {
     saveButton.disabled = !changed;
 }
 
-chrome.storage.onChanged.addListener(async (changes, areaName) => {
-    Object.keys(changes).forEach(async (key) => {
+chrome.storage.onChanged.addListener((changes, areaName) => {
+    Object.keys(changes).forEach((key) => {
         if (types.hasOwnProperty(key)) {
             const cacheKey = types[key];
             storageChangeHandler(changes[key].newValue, window[`${cacheKey}Editor`], cacheKey);

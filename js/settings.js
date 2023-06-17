@@ -23,7 +23,7 @@ async function init() {
     language.value = settings["language"];
     language.addEventListener("change", languageChanged);
 
-    inputs.forEach(async (elem) => {
+    inputs.forEach((elem) => {
         elem.checked = settings[dom.attr(elem, "data-setting-name")];
         elem.addEventListener("change", settingChanged);
     });
