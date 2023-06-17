@@ -13,7 +13,7 @@ var types = {
 
 setValues();
 
-chrome.storage.onChanged.addListener(async (changes, areaName) => {
+chrome.storage.onChanged.addListener((changes, areaName) => {
     Object.keys(changes).forEach((key) => {
         if (Object.keys(types).includes(key)) {
             types[key].textContent = changes[key].newValue;
