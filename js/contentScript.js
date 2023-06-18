@@ -2,6 +2,7 @@
 // import i18n from "./i18n.js";
 // import storage from "./storage.js";
 
+const buttonArray = ["User", "Avatar", "Signature"];
 const CSS_HIDE = "theBlocker-hide";
 const CSS_SHOW = "theBlocker-show";
 
@@ -12,27 +13,27 @@ var cloneReportButton = document.createElement("a");
 cloneReportButton.className = "actionBar-action actionBar-action--report";
 cloneReportButton.setAttribute("data-xf-click", "overlay");
 
-var cloneUserButton = document.createElement("a");
-cloneUserButton.className = "actionBar-action actionBar-action--block userButton";
+self.cloneUserButton = document.createElement("a");
+self.cloneUserButton.className = "actionBar-action actionBar-action--block userButton";
 var cloneUserSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 cloneUserSvg.setAttribute("viewBox", "-64 0 512 512");
 cloneUserSvg.appendChild(document.createElementNS("http://www.w3.org/2000/svg", 'path'));
-cloneUserButton.append(cloneUserSvg, document.createElement("span"));
+self.cloneUserButton.append(cloneUserSvg, document.createElement("span"));
 
-var cloneAvatarButton = document.createElement("a");
-cloneAvatarButton.className = "actionBar-action actionBar-action--block avatarButton";
-cloneAvatarButton.append(
-    cloneUserButton.firstElementChild.cloneNode(true),
-    cloneUserButton.lastElementChild.cloneNode(true)
+self.cloneAvatarButton = document.createElement("a");
+self.cloneAvatarButton.className = "actionBar-action actionBar-action--block avatarButton";
+self.cloneAvatarButton.append(
+    self.cloneUserButton.firstElementChild.cloneNode(true),
+    self.cloneUserButton.lastElementChild.cloneNode(true)
 );
 
-var cloneSignatureButton = document.createElement("a");
-cloneSignatureButton.className = "actionBar-action actionBar-action--block signatureButton";
-cloneSignatureButton.append(
-    cloneUserButton.firstElementChild.cloneNode(true),
-    cloneUserButton.lastElementChild.cloneNode(true)
+self.cloneSignatureButton = document.createElement("a");
+self.cloneSignatureButton.className = "actionBar-action actionBar-action--block signatureButton";
+self.cloneSignatureButton.append(
+    self.cloneUserButton.firstElementChild.cloneNode(true),
+    self.cloneUserButton.lastElementChild.cloneNode(true)
 );
-cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
+self.cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
 
 (async () => {
     var settings = await chrome.storage.local.get(null);
@@ -48,13 +49,13 @@ cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
     function initCloneButtons() {
         cloneReportButton.textContent = settings[settings["language"]]["contentScriptReportButtonText"];
 
-        cloneUserButton.title = settings[settings["language"]]["contentScriptUserButtonTitle"];
-        cloneAvatarButton.title = settings[settings["language"]]["contentScriptAvatarButtonTitle"];
-        cloneSignatureButton.title = settings[settings["language"]]["contentScriptSignatureButtonTitle"];
+        self.cloneUserButton.title = settings[settings["language"]]["contentScriptUserButtonTitle"];
+        self.cloneAvatarButton.title = settings[settings["language"]]["contentScriptAvatarButtonTitle"];
+        self.cloneSignatureButton.title = settings[settings["language"]]["contentScriptSignatureButtonTitle"];
         
-        cloneUserButton.lastElementChild.textContent = settings[settings["language"]]["contentScriptUserButtonText"];
-        cloneAvatarButton.lastElementChild.textContent = settings[settings["language"]]["contentScriptAvatarButtonText"];
-        cloneSignatureButton.lastElementChild.textContent = settings[settings["language"]]["contentScriptSignatureButtonText"];
+        self.cloneUserButton.lastElementChild.textContent = settings[settings["language"]]["contentScriptUserButtonText"];
+        self.cloneAvatarButton.lastElementChild.textContent = settings[settings["language"]]["contentScriptAvatarButtonText"];
+        self.cloneSignatureButton.lastElementChild.textContent = settings[settings["language"]]["contentScriptSignatureButtonText"];
     }
 
     function blockButtons() {
@@ -93,71 +94,32 @@ cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
             }
 
             if (!messages[i].querySelector(".actionBar-action--block")) {
-                messages[i].lastElementChild.append(...makeBlockButtons(i));
+                messages[i].lastElementChild.append(...makeBlockButtons(userIds[i]));
             }
         }
     }
 
-    function makeBlockButtons(i) {
-        var buttons = [];
+    function makeBlockButtons(userId) {
+        return buttonArray.map((elem) => {
+            if (settings[`settingsButtons${elem}`]) {
+                var button = window[`clone${elem}Button`].cloneNode(true);
 
-        if (settings["settingsButtonsUser"]) {
-            var userButton = cloneUserButton.cloneNode(true);
+                if (selfBlockCheck(userId)) {
+                    button.classList.add(CSS_HIDE);
+                }
+                else {
+                    if (settings[`${elem.toLowerCase()}Array`].includes(userId)) {
+                        button.title = settings[settings["language"]][`contentScript${elem}ButtonUnblockTitle`];
+                        button.lastElementChild.textContent = settings[settings["language"]][`contentScript${elem}ButtonUnblockText`];
+                    }
 
-            if (selfBlockCheck(userIds[i])) {
-                userButton.classList.add(CSS_HIDE);
-            }
-            else {
-                userButton.addEventListener("click", (event) => {
-                    document.querySelectorAll(`:is(article:has(a[data-user-id="${userIds[i]}"]),blockquote[data-attributes="member: ${userIds[i]}"],.block-row:has(a[data-user-id="${userIds[i]}"]))`)
-                    .forEach((elem) => {
-                        elem.classList.add(CSS_HIDE);
-                    });
-
-                    blockFunction("user", userIds[i]);
-                });
-            }
-
-            buttons.push(userButton);
-        }
-
-        if (settings["settingsButtonsAvatar"]) {
-            var avatarButton = cloneAvatarButton.cloneNode(true);
-
-            if (selfBlockCheck(userIds[i])) {
-                avatarButton.classList.add(CSS_HIDE);
-            }
-            else {
-                if (settings["avatarArray"].includes(userIds[i])) {
-                    avatarButton.title = settings[settings["language"]]["contentScriptAvatarButtonUnblockTitle"];
-                    avatarButton.lastElementChild.textContent = settings[settings["language"]]["contentScriptAvatarButtonUnblockText"];
+                    button.addEventListener("click", blockToggle);
                 }
 
-                avatarButton.addEventListener("click", blockToggle);
+                return button;
             }
-
-            buttons.push(avatarButton);
-        }
-
-        if (settings["settingsButtonsSignature"]) {
-            var signatureButton = cloneSignatureButton.cloneNode(true);
-
-            if (selfBlockCheck(userIds[i])) {
-                signatureButton.classList.add(CSS_HIDE);
-            }
-            else {
-                if (settings["signatureArray"].includes(userIds[i])) {
-                    signatureButton.title = settings[settings["language"]]["contentScriptSignatureButtonUnblockTitle"];
-                    signatureButton.lastElementChild.textContent = settings[settings["language"]]["contentScriptSignatureButtonUnblockText"];
-                }
-                
-                signatureButton.addEventListener("click", blockToggle);
-            }
-
-            buttons.push(signatureButton);
-        }
-
-        return buttons;
+        })
+        .filter(Boolean);
     }
 
     async function blockToggle(event) {
@@ -170,6 +132,9 @@ cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
         settings = await chrome.storage.local.get(null);
 
         switch (type) {
+            case "user":
+                query = document.querySelectorAll(`:is(article:has(a[data-user-id="${userId}"]),blockquote[data-attributes="member: ${userId}"],.block-row:has(a[data-user-id="${userId}"]))`);
+                break;
             case "avatar":
                 query = document.querySelectorAll(`a[data-user-id="${userId}"]>img`);
                 break;
