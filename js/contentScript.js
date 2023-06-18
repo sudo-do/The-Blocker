@@ -73,30 +73,30 @@ self.cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512
             var cloneActionBar = document.createElement("div");
             cloneActionBar.className = "message-actionBar actionBar";
 
-            for (const footer of document.querySelectorAll(".message-footer")) {
-                footer.prepend(cloneActionBar.cloneNode(true));
-            }
+            document.querySelectorAll(".message-footer").forEach((elem) => {
+                elem.prepend(cloneActionBar.cloneNode(true));
+            });
 
             messages = document.querySelectorAll(".message-actionBar.actionBar");
         }
 
-        for (let i = 0; i < messages.length; ++i) {
+        messages.forEach((elem, i) => {
             // no report and no edit
-            if (!messages[i].querySelector(".actionBar-set.actionBar-set--internal")) {
-                messages[i].append(cloneInternal.cloneNode(true));
+            if (!elem.querySelector(".actionBar-set.actionBar-set--internal")) {
+                elem.append(cloneInternal.cloneNode(true));
             }
 
             // no report
-            if (!messages[i].querySelector(".actionBar-action.actionBar-action--report")) {
+            if (!elem.querySelector(".actionBar-action.actionBar-action--report")) {
                 var reportButton = cloneReportButton.cloneNode(true);
                 reportButton.setAttribute("href", `/sosyal/mesaj/${postIds[i]}/report`);
-                messages[i].lastElementChild.prepend(reportButton);
+                elem.lastElementChild.prepend(reportButton);
             }
 
-            if (!messages[i].querySelector(".actionBar-action--block")) {
-                messages[i].lastElementChild.append(...makeBlockButtons(userIds[i]));
+            if (!elem.querySelector(".actionBar-action--block")) {
+                elem.lastElementChild.append(...makeBlockButtons(userIds[i]));
             }
-        }
+        });
     }
 
     function makeBlockButtons(userId) {
