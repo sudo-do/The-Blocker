@@ -145,39 +145,31 @@ self.cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512
                 break;
         }
 
-        if (settings[`${type}Array`].includes(userId)) {
-            unblockFunction(type, userId);
+        var isBlocked = settings[`${type}Array`].includes(userId);
+        var blockFunction = isBlocked ? unblock : block;
+        var title = isBlocked
+            ? settings[settings["language"]][`contentScript${typeCapital}ButtonTitle`]
+            : settings[settings["language"]][`contentScript${typeCapital}ButtonUnblockTitle`];
+        var textContent = isBlocked
+            ? settings[settings["language"]][`contentScript${typeCapital}ButtonText`]
+            : settings[settings["language"]][`contentScript${typeCapital}ButtonUnblockText`];
 
-            query.forEach((elem) => {
-                elem.classList.remove(CSS_HIDE);
-                elem.classList.add(CSS_SHOW);
-            });
+        blockFunction(type, userId);
 
-            userIds.forEach((elem, i) => {
-                if (elem === userId) {
-                    buttons[i].title = settings[settings["language"]][`contentScript${typeCapital}ButtonTitle`];
-                    buttons[i].lastElementChild.textContent = settings[settings["language"]][`contentScript${typeCapital}ButtonText`];
-                }
-            });
-        }
-        else {
-            blockFunction(type, userId);
+        query.forEach((elem) => {
+            elem.classList.toggle(CSS_HIDE, !isBlocked);
+            elem.classList.toggle(CSS_SHOW, isBlocked);
+        });
 
-            query.forEach((elem) => {
-                elem.classList.add(CSS_HIDE);
-                elem.classList.remove(CSS_SHOW);
-            });
-
-            userIds.forEach((elem, i) => {
-                if (elem === userId) {
-                    buttons[i].title = settings[settings["language"]][`contentScript${typeCapital}ButtonUnblockTitle`];
-                    buttons[i].lastElementChild.textContent = settings[settings["language"]][`contentScript${typeCapital}ButtonUnblockText`];
-                }
-            });
-        }
+        userIds.forEach((elem, i) => {
+            if (elem === userId) {
+                buttons[i].title = title;
+                buttons[i].lastElementChild.textContent = textContent;
+            }
+        });
     }
 
-    function blockFunction(buttonType, userId) {
+    function block(buttonType, userId) {
         chrome.runtime.sendMessage({
             type: "block",
             buttonType: buttonType,
@@ -185,7 +177,7 @@ self.cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512
         });
     }
 
-    function unblockFunction(buttonType, userId) {
+    function unblock(buttonType, userId) {
         chrome.runtime.sendMessage({
             type: "unblock",
             buttonType: buttonType,
