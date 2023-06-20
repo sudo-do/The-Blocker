@@ -48,7 +48,7 @@ chrome.runtime.onMessage.addListener(
                 await injectCSS(sender.tab.id);
                 break;
             case "tabHandlerCSS":
-                await tabHandlerCSS(sender.tab.id);
+                tabHandlerCSS(sender.tab.id);
                 break;
             case "theme":
                 setIcon(request.theme);
