@@ -3,10 +3,17 @@ import dom from "./dom.js";
 import i18n from "./i18n.js";
 import storage from "./storage.js";
 
-i18n.render();
-loadLastPane();
 var iframe = dom.qs("#iframe");
 var paneToLoad = "";
+
+
+init();
+
+
+async function init() {
+    await i18n.render();
+    await loadLastPane();
+}
 
 window.addEventListener('message', function (event) {
     switch (event.data["type"]) {
@@ -43,13 +50,12 @@ function tabCliked(event) {
     loadPane(dom.attr(event.target, "data-pane"));
 }
 
-function loadLastPane() {
-    storage.get("optionsLastPane", (result) => {
-        iframe.contentWindow.location.replace(result["optionsLastPane"]);
-        const tabButton = dom.qs(`[data-pane="${result["optionsLastPane"]}"]`);
-        tabButton.classList.add("selected");
-        tabButton.scrollIntoView();
-    });
+async function loadLastPane() {
+    var result = await storage.get("optionsLastPane");
+    iframe.contentWindow.location.replace(result["optionsLastPane"]);
+    const tabButton = dom.qs(`[data-pane="${result["optionsLastPane"]}"]`);
+    tabButton.classList.add("selected");
+    tabButton.scrollIntoView();
 }
 
 function loadPane(pane) {
