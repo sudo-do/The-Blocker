@@ -73,12 +73,12 @@ function setEditorFocuses() {
             self.avatarEditor.focus();
         }
     });
-    avatarEditor.setOption("extraKeys", {
+    self.avatarEditor.setOption("extraKeys", {
         Tab: function (cm) {
             self.signatureEditor.focus();
         }
     });
-    signatureEditor.setOption("extraKeys", {
+    self.signatureEditor.setOption("extraKeys", {
         Tab: function (cm) {
             if (saveButton.disabled) {
                 self.userEditor.focus();
