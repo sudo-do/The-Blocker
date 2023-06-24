@@ -15,7 +15,7 @@ async function init() {
     await loadLastPane();
 }
 
-window.addEventListener('message', function (event) {
+window.addEventListener("message", function (event) {
     switch (event.data["type"]) {
         case "tab":
             setSelectedTab();

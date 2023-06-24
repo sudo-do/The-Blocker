@@ -17,7 +17,7 @@ self.cloneUserButton = document.createElement("a");
 self.cloneUserButton.className = "actionBar-action actionBar-action--block userButton";
 var cloneUserSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 cloneUserSvg.setAttribute("viewBox", "-64 0 512 512");
-cloneUserSvg.appendChild(document.createElementNS("http://www.w3.org/2000/svg", 'path'));
+cloneUserSvg.appendChild(document.createElementNS("http://www.w3.org/2000/svg", "path"));
 self.cloneUserButton.append(cloneUserSvg, document.createElement("span"));
 
 self.cloneAvatarButton = document.createElement("a");
@@ -200,7 +200,7 @@ self.cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512
         const config = { attributes: false, childList: true, subtree: true };
         const callback = async (mutationList, observer) => {
             for (const mutation of mutationList) {
-                if (mutation.type === 'childList') {
+                if (mutation.type === "childList") {
                     blockButtons();
                     break;
                 }

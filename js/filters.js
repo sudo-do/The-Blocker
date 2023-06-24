@@ -6,7 +6,7 @@ import storage from "./storage.js";
 var codeMirrorOptions = {
     autofocus: true,
     foldGutter: true,
-    gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+    gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
     lineNumbers: true,
     lineWiseCopyCut: true,
     lineWrapping: true,
@@ -161,7 +161,7 @@ window.addEventListener("beforeunload", (event) => {
     }
 
     event.preventDefault();
-    event.returnValue = '';
+    event.returnValue = "";
 });
 
 window.addEventListener("unload", (event) => {
