@@ -41,17 +41,20 @@ function clearIsActive() {
     }
 }
 
+function setIsActive() {
+    for (let i = 0; i < buttons.length; ++i) {
+        if (buttons[i].classList.contains("is-active")) {
+            cloneButtons[i].classList.add("is-active");
+        }
+    }
+}
+
 function observe() {
     const targetNode = tabWrapper.firstElementChild.firstElementChild.firstElementChild;
     const config = { attributes: true, childList: true, subtree: true };
     const callback = async (mutationList, observer) => {
         clearIsActive();
-
-        for (let i = 0; i < buttons.length; ++i) {
-            if (buttons[i].classList.contains("is-active")) {
-                cloneButtons[i].classList.add("is-active");
-            }
-        }
+        setIsActive();
     };
     const observer = new MutationObserver(callback);
     if (targetNode) {
