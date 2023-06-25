@@ -191,8 +191,5 @@
     },
     "contentScriptReportButtonText": {
         "message": "Rapor"
-    },
-    "contentScriptSelfBlockText": {
-        "message": "Kendini engelleme"
     }
 }

@@ -111,8 +111,7 @@
         "contentScriptUserButtonUnblockText": "-",
         "contentScriptAvatarButtonUnblockText": "Unblock avatar",
         "contentScriptSignatureButtonUnblockText": "Unblock signature",
-        "contentScriptReportButtonText": "Report",
-        "contentScriptSelfBlockText": "Do not block yourself"
+        "contentScriptReportButtonText": "Report"
     },
 
 
@@ -188,7 +187,6 @@
         "contentScriptUserButtonUnblockText": "-",
         "contentScriptAvatarButtonUnblockText": "Avatarı göster",
         "contentScriptSignatureButtonUnblockText": "İmzayı göster",
-        "contentScriptReportButtonText": "Rapor",
-        "contentScriptSelfBlockText": "Kendini engelleme"
+        "contentScriptReportButtonText": "Rapor"
     }
 }

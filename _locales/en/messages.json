@@ -191,8 +191,5 @@
     },
     "contentScriptReportButtonText": {
         "message": "Report"
-    },
-    "contentScriptSelfBlockText": {
-        "message": "Do not block yourself"
     }
 }
