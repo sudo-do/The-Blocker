@@ -10,8 +10,6 @@ var types = {
 };
 
 chrome.runtime.onInstalled.addListener(async () => {
-    await createOffscreen();
-
     const jsonURL = await chrome.runtime.getURL("storage.json");
     const response = await fetch(jsonURL);
     const json = await response.json();
