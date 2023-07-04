@@ -14,26 +14,17 @@ cloneReportButton.className = "actionBar-action actionBar-action--report";
 cloneReportButton.setAttribute("data-xf-click", "overlay");
 
 self.cloneUserButton = document.createElement("a");
+var cloneSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+cloneSvg.setAttribute("viewBox", "0 0 512 512");
+cloneSvg.appendChild(document.createElementNS("http://www.w3.org/2000/svg", "path"));
+self.cloneUserButton.append(cloneSvg, document.createElement("span"));
+
+self.cloneAvatarButton = self.cloneUserButton.cloneNode(true);
+self.cloneSignatureButton = self.cloneUserButton.cloneNode(true);
+
 self.cloneUserButton.className = "actionBar-action actionBar-action--block userButton";
-var cloneUserSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-cloneUserSvg.setAttribute("viewBox", "-64 0 512 512");
-cloneUserSvg.appendChild(document.createElementNS("http://www.w3.org/2000/svg", "path"));
-self.cloneUserButton.append(cloneUserSvg, document.createElement("span"));
-
-self.cloneAvatarButton = document.createElement("a");
 self.cloneAvatarButton.className = "actionBar-action actionBar-action--block avatarButton";
-self.cloneAvatarButton.append(
-    self.cloneUserButton.firstElementChild.cloneNode(true),
-    self.cloneUserButton.lastElementChild.cloneNode(true)
-);
-
-self.cloneSignatureButton = document.createElement("a");
 self.cloneSignatureButton.className = "actionBar-action actionBar-action--block signatureButton";
-self.cloneSignatureButton.append(
-    self.cloneUserButton.firstElementChild.cloneNode(true),
-    self.cloneUserButton.lastElementChild.cloneNode(true)
-);
-self.cloneSignatureButton.firstElementChild.setAttribute("viewBox", "0 0 512 512");
 
 (async () => {
     var settings = await chrome.storage.local.get(null);
