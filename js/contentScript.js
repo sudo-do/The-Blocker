@@ -69,6 +69,8 @@ self.cloneSignatureButton.className = "actionBar-action actionBar-action--block 
             });
 
             messages = document.querySelectorAll(".message-actionBar.actionBar");
+
+            //TODO: Profile page compability
         }
 
         messages.forEach((elem, i) => {
